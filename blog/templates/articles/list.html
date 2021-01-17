@@ -1,0 +1,24 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title%} {{title}} {% endblock %}
+
+{% block content%}
+    {% for article in articles %}
+        <div class="data">
+            <h1>{{article.title}}</h1>
+                {% for category in article.categories.all %}
+                    <a href="#">{{category}}</a>
+
+                    {% if forloop.counter < article.categories.all|length %}
+                        {{' - '}}
+                    {% endif %}
+                {% endfor %}
+            <span class="date">
+            {{article.created_at}} 
+            </span>
+            <p>
+                {{article.content|safe}}
+            </p>
+        </div>
+    {% endfor %}
+{% endblock %}

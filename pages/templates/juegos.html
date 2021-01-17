@@ -1,0 +1,109 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %} Productos {% endblock %}
+{% block content %}
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+    {{ block.super }}
+    {% if messages %}
+        {%for message in messages%}
+            <div class="message">
+                {{message|safe}}
+            </div>
+        {%endfor%}
+    {%endif%}
+    <table id="informacion-juego">
+    {% if games %}
+        {% for game in games%}
+        <tr>
+            <th id="tablaInfo">
+            <h1>{{game.nombre}}</h1>
+            </th>
+            <th id="tablaInfo">
+            <h4>Actualizado el: {{ game.updated_at }}</h4>
+            <h4>Agregado el: {{ game.created_at }}</h4>
+            </th>
+        <tr>
+        </tr>
+        <td id ="imagen1">
+        <img src="{{game.link_imagen}}" alt="{{game.nombre}}" itemprop="image">
+        </td>
+        <th id="tablaInfo">
+        <p id ="tablaInfo">
+            {{game.desc|safe}}
+        </p>
+        </th>
+        </tr>
+    </table>
+    <table class="table table-bordered" id="informacion-juego">
+        <thead>
+            <tr>
+                <th id ="barrita">Precio</th>
+                <th id ="barrita">Enlace</th>
+            </tr>
+            
+        </thead>
+        <tbody id = "imagen1">
+            
+            <tr>
+                <td id="precio-juego">{{ game.precio1 }}</td>
+                <td id ="barrita"><a href="{{ game.enlace1 }}">{{ game.tienda1 }}</a></td>
+            <tr>
+
+                <td id="precio-juego">{{ game.precio2 }}</td>
+                <td id ="barrita"><a href="{{ game.enlace2 }}">{{ game.tienda2 }}</a></td>
+            <tr>
+                <td id="precio-juego">{{ game.precio3 }}</td>
+                <td id ="barrita"><a href="{{ game.enlace3 }}">{{ game.tienda3 }}</a></td>
+            </tr>
+            <tr>
+                <td id ="barrita">👀 El precio mas bajo de este producto ha sido 👉</td>
+                <td id="precio-juego">{{ game.preciomasbajo }}</td>
+            </tr>
+                <th id="tablaInvisible">
+                    <br>
+                </th>
+                <th id="tablaInvisible">
+                    <br>
+                </th>
+                {% if game.precio1 < game.precio2 and game.precio1 < game.precio3 %}
+                <div class="precioBajo">
+                El precio mas barato de se encuentra en <a href="{{ game.enlace1 }}">{{ game.tienda1 }} a ${{game.precio1}}</a>
+                </div>
+                {% elif game.precio2 < game.precio1 and game.precio2 < game.precio3 %}
+                <div class="precioBajo">
+                El precio mas barato se encuentra en <a href="{{ game.enlace2 }}">{{ game.tienda2 }} a ${{game.precio2}}</a>
+                </div>
+                {% elif game.precio2 == game.precio1 and game.precio2 == game.precio3 %}
+                <div class="precioBajo">
+                Todos los precios son iguales
+                </div>
+                {% elif game.precio1 < game.precio3 and game.precio1 == game.precio2%}
+                <div class="precioBajo">
+                El precio mas barato de se encuentra en <a href="{{ game.enlace1 }}">{{ game.tienda1 }} a ${{game.precio1}}</a>
+                </div>
+                {% elif game.precio2 < game.precio3 and game.precio2 == game.precio1%}
+                <div class="precioBajo">
+                El precio mas barato de se encuentra en <a href="{{ game.enlace2 }}">{{ game.tienda2 }} a ${{game.precio2}}</a>
+                </div>
+                {% elif game.precio3 < game.precio1 and game.precio3 == game.precio2%}
+                <div class="precioBajo">
+                El precio mas barato de se encuentra en <a href="{{ game.enlace3 }}">{{ game.tienda3 }} a ${{game.precio3}}</a>
+                </div>
+                {% else %}
+                <div class="precioBajo">
+                El precio mas barato se encuentra en <a href="{{ game.enlace3 }}">{{ game.tienda3 }} a ${{game.precio3}}</a>
+                </div>
+                {% endif %}
+
+        {% endfor %}
+    {% else %}
+        <h1>No hay precios guardados</h1>
+    {% endif %}
+        </tbody>
+    </table>
+        <p> <br> </p>
+        {% include 'pagination.html' %}
+
+{% endblock %}

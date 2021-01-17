@@ -1,0 +1,15 @@
+<div class="pagination">
+    {% if games.has_previous %}
+        <a href="?page=1">&laquo; Primera </a>
+        <a href="?page={{ games.previous_page_number }}">Anterior</a>
+    {%endif%}
+
+    <span class="actual">
+        Pagina <b>{{games.number}}</b> de <b>{{games.paginator.num_pages}}</b>
+    </span>
+
+     {% if games.has_next %}
+        <a href="?page={{ games.next_page_number }}">Siguiente</a>
+        <a href="?page={{games.paginator.num_pages}}">Ultima &raquo;</a>
+    {%endif%}
+</div>

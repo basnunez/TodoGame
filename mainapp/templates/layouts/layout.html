@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        <!--Titulo que viene al template-->
+        {% endblock %}
+        | Seminario Grado
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+    <div class="banner">
+        <picture>
+            <source media="(min-width:667px)" srcset="{% static 'images/banner.png'%}">
+            <img src="{% static 'images/logo.png'%}" alt="TodoGames" style="width:auto;">
+        </picture>
+    </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url 'index' %}">Inicio</a>
+            </li>
+            <li>
+                <a href="{% url 'juegos' %}">Productos</a>
+            </li>
+            <li>
+                <a href="http://127.0.0.1:8000/juegos/?search=ps4">PS4</a>
+            </li>
+
+            {% if user.email %}
+                <li>
+                    <a href="{% url 'guardar_full' %}">Registrar Producto</a>
+                </li>
+                <li>
+                    <a href="{% url 'juegos3' %}">Lista Productos</a>
+                </li>
+                {% comment '' %}
+                <li>
+                    <a href="{% url 'register' %}">Registrar Usuario</a>
+                </li>
+                {% endcomment %}%}
+                <li>
+                    <a id="cerrarSesion" href="{% url 'logout' %}">Cerrar Sesion de {{user.username}}</a>
+                </li>
+                
+            {% else %}
+            <li>
+                <a href="{% url 'login' %}">Identificarse</a>
+            </li>
+            {%endif%}
+            <li>
+            <form class="form-inline my-2 my-lg-1" action="{% url 'juegos' %}">
+            <input
+            class="busquedaInput"
+            type="search"
+            placeholder="Buscar..."
+            aria-label="Search"
+            name='search'
+            value="{{search_term}}">
+            <button class="botones2" type="submit" >🔍</button>
+            </form>
+            </li>
+            
+
+        </ul>
+    </nav>
+    <div class="barra">
+        <span class="esquina-izquierda"></span>
+        <span class="relleno-barra"></span>
+        <span class="esquina-derecha"></span>
+    </div>
+
+    <div id="content">
+        <div class="box">
+            {% block content %}
+            <!--Contenido que viene a template desde los diversos html-->
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer id="barrita">
+        Julio Campos, Yercko Glusevic, Bastian Nuñez - Seminario de Grado, Inacap - {% now "Y" %}
+    </footer>
+</body>
+
+</html>

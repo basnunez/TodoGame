@@ -1,0 +1,69 @@
+{% extends 'layouts/layout.html' %}
+{% block title %} TodoGames {% endblock %}
+{% block content %}
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+    {{ block.super }}
+
+<table id="informacion-juego">
+    {% if games %}
+    {% for game in games%}
+    <tr>
+    <th width="100">
+    <h1>{{game.nombre}}</h1>
+    </th>
+    <tr>
+    </tr>
+    <td id ="imagen1">
+    <img src="{{game.link_imagen}}" alt="{{game.nombre}}" itemprop="image">
+    </td>
+    <th>
+    <p id ="parrafojuego">
+    {{game.desc}}
+    </p>
+    </th>
+    </tr>
+    
+</table>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th id ="barrita">Precio</th>
+                <th id ="barrita">Tienda</th>
+                <th id ="barrita">Enlace</th>
+                <th id ="barrita">Fecha Actualizacion</th>
+            </tr>
+        </thead>
+        <tbody id = "imagen1">
+            
+            <tr>
+
+                <td id="precio-juego">{{ game.precio1 }}</td>
+                <td id ="barrita"><a href="{{ game.enlace1 }}">{{ game.tienda1 }}</a></td>
+                <td id ="barrita"><a href="{{ game.enlace1 }}">Click para ver</a></td>
+                <td id ="barrita">{{ game.updated_at }}</td>
+
+            <tr>
+
+                <td id="precio-juego">{{ game.precio2 }}</td>
+                <td id ="barrita"><a href="{{ game.enlace2 }}">{{ game.tienda2 }}</a></td>
+                <td id ="barrita"><a href="{{ game.enlace2 }}">Click para ver</a></td>
+                <td id ="barrita">{{ game.updated_at }}</td>
+
+            <tr>
+
+                <td id="precio-juego">{{ game.precio3 }}</td>
+                <td id ="barrita"><a href="{{ game.enlace3 }}">{{ game.tienda3 }}</a></td>
+                <td id ="barrita"><a href="{{ game.enlace3 }}">Click para ver</a></td>
+                <td id ="barrita">{{ game.updated_at }}</td>
+
+            </tr>
+    {% endfor %}
+    {% else %}
+    <h1>No hay precios guardados sobre este juego</h1>
+    {% endif %}
+        </tbody>
+    </table>
+
+{% endblock %}

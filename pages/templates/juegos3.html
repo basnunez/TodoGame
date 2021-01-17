@@ -1,0 +1,71 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %} Listar Juegos {% endblock %}
+
+{% block content %}
+    {{ block.super }}
+
+    <h1>Tabla de juegos</h1>
+    <p><br></p>
+    <form class="busqueda" action="{% url 'juegos3' %}">
+            <input class="busquedaInput" type="search" placeholder="Buscar..." aria-label="Search" name='search' value="{{search_term}}">
+            <button class="botones" type="submit" >Buscar</button>
+    </form>
+    <form class="actualizar" action="{% url 'actualizar' %}">
+            <button id="actualizarJuegos" class="botones" type="submit" >Actualizar Juegos</button>
+    </form>
+    <p><br></p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th id ="barrita">Titulo</th>
+                <th id ="barrita">Precio</th>
+                <th id ="barrita">Tienda</th>
+                <th id ="barrita">Enlace</th>
+                <th id ="barrita">Fecha Creacion</th>
+                <th id ="barrita">Fecha Actualizacion</th>
+                <th id ="barrita">Accion</th>
+            </tr>
+        </thead>
+        <tbody id = "imagen1">
+            {% if games %}
+            {% for game in games %}
+            <tr>
+                <td id ="barrita">{{ game.nombre }}</td>
+                <td id="precio-juego">{{ game.precio1 }}</td>
+                <td id ="barrita"><a href="{{ game.enlace1 }}">{{ game.tienda1 }}</a></td>
+                <td id ="barrita"><a href="{{ game.enlace1 }}">Click para ver</a></td>
+                <td id ="barrita">{{ game.created_at }}</td>
+                <td id ="barrita">{{ game.updated_at }}</td>
+                <td id ="barrita"><a href="{% url 'delete' id=game.id %}">Eliminar</a></td>
+            </tr>
+            <tr>
+                <td id ="barrita"></td>
+                <td id="precio-juego">{{ game.precio2 }}</td>
+                <td id ="barrita"><a href="{{ game.enlace2 }}">{{ game.tienda2 }}</a></td>
+                <td id ="barrita"><a href="{{ game.enlace2 }}">Click para ver</a></td>
+                <td id ="barrita">{{ game.created_at }}</td>
+                <td id ="barrita">{{ game.updated_at }}</td>
+                <td id ="barrita"></td>
+            </tr>
+            <tr>
+                <td id ="barrita"></td>
+                <td id="precio-juego">{{ game.precio3 }}</td>
+                <td id ="barrita"><a href="{{ game.enlace3 }}">{{ game.tienda3 }}</a></td>
+                <td id ="barrita"><a href="{{ game.enlace3 }}">Click para ver</a></td>
+                <td id ="barrita">{{ game.created_at }}</td>
+                <td id ="barrita">{{ game.updated_at }}</td>
+                <td id ="barrita"></td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <h1>No hay registros guardados</h1>
+            {% endif %}
+        </tbody>
+    </table>
+    <p> 
+    <br> 
+    </p>
+    {% include 'pagination.html' %}
+
+{% endblock %}
